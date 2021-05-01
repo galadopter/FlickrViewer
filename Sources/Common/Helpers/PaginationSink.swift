@@ -8,7 +8,7 @@
 import RxSwift
 import RxRelay
 
-public class PaginationSink<T> {
+public class PaginationSink<T: Hashable> {
     
     private let isLoadingRelay = BehaviorRelay<Bool>(value: false)
     private let errorsRelay = PublishRelay<Error>()
@@ -91,7 +91,9 @@ public class PaginationSink<T> {
             .withLatestFrom(items) { ($0, $1) }
             .map { response, items -> [T] in
                 if response.page > 0 {
-                    return items + response.results
+                    var mutableItems = items
+                    mutableItems.append(contentsOf: response.results, unique: true)
+                    return mutableItems
                 } else {
                     return response.results
                 }

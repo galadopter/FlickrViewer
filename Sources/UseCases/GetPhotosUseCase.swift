@@ -33,27 +33,29 @@ extension GetPhotosUseCase: UseCaseType {
     }
     
     func execute(input: Input) -> Output {
-        let text = input.searchText.share()
-        let emptyPhotos = text.filter { $0.isEmpty }.map { _ in [Photo]() }
-        let photos = getPhotos(searchText: text.filter { !$0.isEmpty }, loadNextPage: input.loadNextPage)
+        let photos = getPhotos(from: input)
         let errors = paginationSink.errors
         let isLoading = paginationSink.isLoading
         
-        return .init(photos: .merge(photos, emptyPhotos), errors: errors, isLoading: isLoading)
+        return .init(photos: photos, errors: errors, isLoading: isLoading)
     }
     
-    private func getPhotos(searchText: Observable<String>, loadNextPage: Observable<Void>) -> Observable<[Photo]> {
-        return searchText.flatMapLatest { text -> Observable<[Photo]> in
-            paginationSink.pagination(
-                task: { (page, numberOfItems) -> Observable<(results: [Photo], totalCount: Int)> in
-                    unwrapResult(gateway.getPhotos(searchText: text, page: page, perPage: numberOfItems))
-                        .map { ($0.photos, $0.totalPhotos) }
-                        .asObservable()
-                },
-                reset: .empty(),
-                next: loadNextPage,
-                numberOfItems: numberOfPhotosPerPage
-            )
+    private func getPhotos(from input: Input) -> Observable<[Photo]> {
+        return input.searchText.flatMapLatest { text -> Observable<[Photo]> in
+            if text.isEmpty {
+                return .just([])
+            } else {
+                return paginationSink.pagination(
+                    task: { (page, numberOfItems) -> Observable<(results: [Photo], totalCount: Int)> in
+                        unwrapResult(gateway.getPhotos(searchText: text, page: page, perPage: numberOfItems))
+                            .map { ($0.photos, $0.totalPhotos) }
+                            .asObservable()
+                    },
+                    reset: .empty(),
+                    next: input.loadNextPage,
+                    numberOfItems: numberOfPhotosPerPage
+                )
+            }
         }.share()
     }
 }

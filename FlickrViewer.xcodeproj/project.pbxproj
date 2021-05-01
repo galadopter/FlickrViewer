@@ -41,6 +41,8 @@
 		7B96A63A263D79210006876F /* Recorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B070F552639EC590074ABD5 /* Recorder.swift */; };
 		7B96A640263D7C5E0006876F /* Nimble in Frameworks */ = {isa = PBXBuildFile; productRef = 7B96A63F263D7C5E0006876F /* Nimble */; };
 		7B96A642263D83A40006876F /* PaginationSinkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B96A641263D83A40006876F /* PaginationSinkTests.swift */; };
+		7B96A644263D9A930006876F /* PhotosPageMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B96A643263D9A930006876F /* PhotosPageMapping.swift */; };
+		7B96A646263DA3510006876F /* Array+Uniqueness.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B96A645263DA3510006876F /* Array+Uniqueness.swift */; };
 		7BCB33A1263B297900AC635E /* RequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCB33A0263B297900AC635E /* RequestType.swift */; };
 		7BCB33A4263B2B0F00AC635E /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCB33A3263B2B0F00AC635E /* NetworkService.swift */; };
 		7BCB33A7263B2B5B00AC635E /* PhotosService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCB33A6263B2B5B00AC635E /* PhotosService.swift */; };
@@ -91,6 +93,8 @@
 		7B96A5ED263C470F0006876F /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		7B96A63C263D7BEF0006876F /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		7B96A641263D83A40006876F /* PaginationSinkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationSinkTests.swift; sourceTree = "<group>"; };
+		7B96A643263D9A930006876F /* PhotosPageMapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosPageMapping.swift; sourceTree = "<group>"; };
+		7B96A645263DA3510006876F /* Array+Uniqueness.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Uniqueness.swift"; sourceTree = "<group>"; };
 		7BCB33A0263B297900AC635E /* RequestType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestType.swift; sourceTree = "<group>"; };
 		7BCB33A3263B2B0F00AC635E /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		7BCB33A6263B2B5B00AC635E /* PhotosService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosService.swift; sourceTree = "<group>"; };
@@ -283,6 +287,7 @@
 			children = (
 				7B070F812639F8B80074ABD5 /* Reactive.swift */,
 				7B070F072639E4700074ABD5 /* UI */,
+				7B96A645263DA3510006876F /* Array+Uniqueness.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -348,6 +353,7 @@
 			children = (
 				7BCB33A6263B2B5B00AC635E /* PhotosService.swift */,
 				7BCB33A8263B2C4000AC635E /* PhotosAPI.swift */,
+				7B96A643263D9A930006876F /* PhotosPageMapping.swift */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -495,6 +501,7 @@
 				7BCB33AC263B2C6900AC635E /* GetPhotosRequest.swift in Sources */,
 				7B070F0D2639E4700074ABD5 /* UIViewController+ErrorAlert.swift in Sources */,
 				7B070EA92639DEA30074ABD5 /* AppDelegate.swift in Sources */,
+				7B96A646263DA3510006876F /* Array+Uniqueness.swift in Sources */,
 				7B070F442639E9870074ABD5 /* Photo.swift in Sources */,
 				7B070EFF2639E30E0074ABD5 /* SearchedImageCell.swift in Sources */,
 				7BCB33A4263B2B0F00AC635E /* NetworkService.swift in Sources */,
@@ -503,6 +510,7 @@
 				7B070F312639E69E0074ABD5 /* UseCaseType.swift in Sources */,
 				7B070F4D2639EB520074ABD5 /* PhotosPage.swift in Sources */,
 				7B070EAB2639DEA30074ABD5 /* SceneDelegate.swift in Sources */,
+				7B96A644263D9A930006876F /* PhotosPageMapping.swift in Sources */,
 				7BCB33AE263B2F6E00AC635E /* Credentials.swift in Sources */,
 				7B563F42263B25B900BD4FEA /* Network.swift in Sources */,
 				7B070F822639F8B80074ABD5 /* Reactive.swift in Sources */,

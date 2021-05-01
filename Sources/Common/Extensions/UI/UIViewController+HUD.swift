@@ -42,7 +42,6 @@ private extension HUD {
     static func showAppStyleIndicator(on view: UIView? = nil) {
         PKHUD.sharedHUD.contentView = PKHUDRotatingImageView(image: UIImage(named: "loadingIndicator"))
         PKHUD.sharedHUD.effect = nil
-        PKHUD.sharedHUD.contentView.superview?.superview?.backgroundColor = .clear
         PKHUD.sharedHUD.show(onView: view)
     }
 }

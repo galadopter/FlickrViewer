@@ -15,7 +15,7 @@ struct TestHelperFactory {
         totalPages: Int = 2,
         perPage: Int = 16,
         totalPhotos: Int = 32,
-        photos: [Photo] = photos(count: 16)
+        photos: [Photo] = photos(range: 1...16)
     ) -> PhotosPage {
         .init(
             page: page,
@@ -27,9 +27,9 @@ struct TestHelperFactory {
     }
     
     static func photos(
-        count: Int = 2
+        range: ClosedRange<Int> = 1...2
     ) -> [Photo] {
-        (1...count).map { photo(id: String($0)) }
+        range.map { photo(id: String($0)) }
     }
     
     static func photo(
