@@ -12,18 +12,42 @@
         <!--History-->
         <scene sceneID="NOP-0q-xpP">
             <objects>
-                <viewController id="4hc-PM-K2K" sceneMemberID="viewController">
+                <viewController id="4hc-PM-K2K" customClass="HistoryViewController" customModule="FlickrViewer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="X0F-p0-k5Z">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dJr-AZ-ZjZ">
+                                <rect key="frame" x="0.0" y="107" width="414" height="706"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="History" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uis-rb-DU8">
+                                <rect key="frame" x="16" y="64" width="382" height="27"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="Mkk-lw-9U5"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="dJr-AZ-ZjZ" firstAttribute="trailing" secondItem="Mkk-lw-9U5" secondAttribute="trailing" id="3C3-N1-Sah"/>
+                            <constraint firstItem="dJr-AZ-ZjZ" firstAttribute="bottom" secondItem="Mkk-lw-9U5" secondAttribute="bottom" id="G8U-eQ-sml"/>
+                            <constraint firstItem="dJr-AZ-ZjZ" firstAttribute="leading" secondItem="Mkk-lw-9U5" secondAttribute="leading" id="NDZ-kR-i5w"/>
+                            <constraint firstItem="Mkk-lw-9U5" firstAttribute="trailing" secondItem="Uis-rb-DU8" secondAttribute="trailing" constant="16" id="OoP-0U-wgd"/>
+                            <constraint firstItem="Uis-rb-DU8" firstAttribute="leading" secondItem="Mkk-lw-9U5" secondAttribute="leading" constant="16" id="b7x-y7-aht"/>
+                            <constraint firstItem="dJr-AZ-ZjZ" firstAttribute="top" secondItem="Uis-rb-DU8" secondAttribute="bottom" constant="16" id="fph-kb-ogh"/>
+                            <constraint firstItem="Uis-rb-DU8" firstAttribute="top" secondItem="Mkk-lw-9U5" secondAttribute="top" constant="20" id="yno-cc-V9m"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="History" image="list.dash" catalog="system" id="Vv1-zc-70I"/>
+                    <connections>
+                        <outlet property="tableView" destination="dJr-AZ-ZjZ" id="6aJ-20-P8a"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fyu-Nd-NFF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="622" y="508"/>
+            <point key="canvasLocation" x="621.73913043478262" y="507.58928571428567"/>
         </scene>
         <!--Search-->
         <scene sceneID="GU3-rh-ZwX">
