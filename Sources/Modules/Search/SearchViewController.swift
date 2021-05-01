@@ -47,9 +47,12 @@ private extension SearchViewController {
 private extension SearchViewController {
     
     var input: SearchViewModel.Input {
-        .init(
-            text: searchBar.rx.text.orEmpty.asDriver(),
-            loadNextPage: nextPage()
+        let optimizedText = searchBar.rx.text.orEmpty.asDriver()
+            .distinctUntilChanged()
+            .debounce(.milliseconds(300))
+        return .init(
+            text: optimizedText,
+            loadNextPage: .merge(optimizedText.filter { !$0.isEmpty }.map { _ in }, nextPage())
         )
     }
     

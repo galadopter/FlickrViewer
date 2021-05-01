@@ -25,7 +25,8 @@ enum HTTPMethod: String {
 extension URLRequest {
     
     init?<API: RequestType>(from api: API) {
-        guard let path = api.baseURL.appendingPathComponent(api.path).absoluteString.removingPercentEncoding,
+        guard let path = api.baseURL.appendingPathComponent(api.path).absoluteString
+                .removingPercentEncoding?.replacingOccurrences(of: " ", with: "+"),
               let url = URL(string: path) else { return nil }
         self.init(url: url)
         httpMethod = api.method.value
