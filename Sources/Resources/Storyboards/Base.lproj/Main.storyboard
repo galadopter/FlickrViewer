@@ -19,7 +19,7 @@
                         <viewLayoutGuide key="safeArea" id="Mkk-lw-9U5"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="History" id="Vv1-zc-70I"/>
+                    <tabBarItem key="tabBarItem" title="History" image="list.dash" catalog="system" id="Vv1-zc-70I"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fyu-Nd-NFF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -45,7 +45,7 @@
                                 <cells/>
                             </collectionView>
                             <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="Wa2-lp-85S">
-                                <rect key="frame" x="0.0" y="107" width="414" height="51"/>
+                                <rect key="frame" x="0.0" y="106.5" width="414" height="51"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Search" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rsG-F8-BRZ">
@@ -70,7 +70,7 @@
                             <constraint firstItem="Lna-ck-rl3" firstAttribute="trailing" secondItem="rsG-F8-BRZ" secondAttribute="trailing" constant="16" id="qAJ-iU-cTG"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Search" id="Xhi-8X-Da6"/>
+                    <tabBarItem key="tabBarItem" title="Search" image="magnifyingglass" catalog="system" id="Xhi-8X-Da6"/>
                     <connections>
                         <outlet property="collectionView" destination="2if-uD-Hxw" id="tnu-d1-gth"/>
                         <outlet property="searchBar" destination="Wa2-lp-85S" id="fjj-6r-cIL"/>
@@ -100,6 +100,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="list.dash" catalog="system" width="128" height="85"/>
+        <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

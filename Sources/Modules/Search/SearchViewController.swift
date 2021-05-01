@@ -47,10 +47,9 @@ private extension SearchViewController {
 private extension SearchViewController {
     
     var input: SearchViewModel.Input {
-        let text = searchBar.rx.text.orEmpty.asDriver()
-        return .init(
-            text: text,
-            loadNextPage: .merge(text.map { _ in }, nextPage())
+        .init(
+            text: searchBar.rx.text.orEmpty.asDriver(),
+            loadNextPage: nextPage()
         )
     }
     
@@ -62,9 +61,15 @@ private extension SearchViewController {
             output.isLoading.drive(rx.isLoading(onView: view))
             output.photos.drive(onNext: { [weak self] viewModels in
                 var snapshot = Snapshot()
-                snapshot.deleteSections([.images])
-                snapshot.appendSections([.images])
-                snapshot.appendItems(viewModels)
+                if viewModels.isEmpty {
+                    snapshot.deleteSections([.images])
+                    snapshot.deleteAllItems()
+                } else {
+                    if snapshot.sectionIdentifiers.isEmpty {
+                        snapshot.appendSections([.images])
+                    }
+                    snapshot.appendItems(viewModels, toSection: .images)
+                }
                 DispatchQueue.main.async {
                     self?.dataSource.apply(snapshot)
                 }
@@ -85,7 +90,7 @@ private extension SearchViewController {
 private extension SearchViewController {
     
     func makeLayout() -> UICollectionViewCompositionalLayout {
-        let cellSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1 / 2), heightDimension: .estimated(145))
+        let cellSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1 / 2), heightDimension: .absolute(145))
         let item = NSCollectionLayoutItem(layoutSize: cellSize)
         
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(145))

@@ -16,7 +16,7 @@ class GetPhotosUseCaseTests: XCTestCase {
     
     func test_fetchingPhotos_shouldSucceed() {
         let page = TestHelperFactory.photosPage()
-        let useCase = makeSUT(page: page)
+        let useCase = makeSUT(pages: [page])
         let interface = MockInterface()
         let recorder = GetPhotosUseCaseRecorder(useCase: useCase, input: interface.mapToInput())
         
@@ -34,9 +34,27 @@ class GetPhotosUseCaseTests: XCTestCase {
         recorder.eventElementShouldBe(false, at: 2, for: \.isLoadingRecorder)
     }
     
-    func test_fetchingTwoPagesOfPhotos_shouldSucceed() {
+    func test_fetchingPhotosWithEmptyString_shouldReturnEmptyArray() {
         let page = TestHelperFactory.photosPage()
-        let useCase = makeSUT(page: page)
+        let useCase = makeSUT(pages: [page])
+        let interface = MockInterface()
+        let recorder = GetPhotosUseCaseRecorder(useCase: useCase, input: interface.mapToInput())
+        
+        recorder.start()
+        interface.searchTextSubject.onNext("")
+        interface.loadNextSubject.onNext(())
+        
+        recorder.eventsShouldEmitted(times: 0, recorder: \.isLoadingRecorder)
+        recorder.eventsShouldEmitted(times: 1, recorder: \.photosRecorder)
+        recorder.eventsShouldEmitted(times: 0, recorder: \.errorsRecorder)
+        
+        recorder.eventElementShouldBe([], at: 0, for: \.photosRecorder)
+    }
+    
+    func test_fetchingTwoPagesOfPhotos_shouldSucceed() {
+        let firstPage = TestHelperFactory.photosPage(page: 0)
+        let secondPage = TestHelperFactory.photosPage(page: 1, photos: TestHelperFactory.photos(range: 17...32))
+        let useCase = makeSUT(pages: [firstPage, secondPage])
         let interface = MockInterface()
         let recorder = GetPhotosUseCaseRecorder(useCase: useCase, input: interface.mapToInput())
         
@@ -49,8 +67,8 @@ class GetPhotosUseCaseTests: XCTestCase {
         recorder.eventsShouldEmitted(times: 2, recorder: \.photosRecorder)
         recorder.eventsShouldEmitted(times: 0, recorder: \.errorsRecorder)
         
-        recorder.eventElementShouldBe(page.photos, at: 0, for: \.photosRecorder)
-        recorder.eventElementShouldBe(page.photos + page.photos, at: 1, for: \.photosRecorder)
+        recorder.eventElementShouldBe(firstPage.photos, at: 0, for: \.photosRecorder)
+        recorder.eventElementShouldBe(firstPage.photos + secondPage.photos, at: 1, for: \.photosRecorder)
         recorder.eventElementShouldBe(false, at: 0, for: \.isLoadingRecorder)
         recorder.eventElementShouldBe(true, at: 1, for: \.isLoadingRecorder)
         recorder.eventElementShouldBe(false, at: 2, for: \.isLoadingRecorder)
@@ -60,7 +78,7 @@ class GetPhotosUseCaseTests: XCTestCase {
     
     func test_selectingAnotherText_shouldSucceed() {
         let page = TestHelperFactory.photosPage()
-        let useCase = makeSUT(page: page)
+        let useCase = makeSUT(pages: [page])
         let interface = MockInterface()
         let recorder = GetPhotosUseCaseRecorder(useCase: useCase, input: interface.mapToInput())
         
@@ -100,8 +118,8 @@ class GetPhotosUseCaseTests: XCTestCase {
         recorder.eventElementShouldBe(false, at: 2, for: \.isLoadingRecorder)
     }
     
-    private func makeSUT(page: PhotosPage, numberOfPhotosPerPage: Int = 16) -> GetPhotosUseCase {
-        let gateway = SuccessMockGetPhotosGateway(photosPage: page)
+    private func makeSUT(pages: [PhotosPage], numberOfPhotosPerPage: Int = 16) -> GetPhotosUseCase {
+        let gateway = SuccessMockGetPhotosGateway(photosPages: pages)
         let sink = PaginationSink<Photo>()
         
         return GetPhotosUseCase(
@@ -128,10 +146,10 @@ private extension GetPhotosUseCaseTests {
     }
     
     struct SuccessMockGetPhotosGateway: GetPhotosGateway {
-        let photosPage: PhotosPage
+        let photosPages: [PhotosPage]
         
         func getPhotos(searchText: String, page: Int, perPage: Int) -> Single<Result<PhotosPage, Error>> {
-            .just(.success(photosPage))
+            .just(.success(photosPages[page]))
         }
     }
     

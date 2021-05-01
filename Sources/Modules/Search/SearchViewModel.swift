@@ -62,6 +62,16 @@ private extension SearchViewModel {
 extension SearchViewModel.Input {
     
     var useCaseInput: GetPhotosUseCase.Input {
-        .init(searchText: text.asObservable(), loadNextPage: loadNextPage.asObservable())
+        .init(
+            searchText: optimizedText,
+            loadNextPage: .merge(optimizedText.debug("optimized").filter { !$0.isEmpty }.map { _ in }, loadNextPage.asObservable())
+        )
+    }
+    
+    var optimizedText: Observable<String> {
+        text.distinctUntilChanged()
+            .debounce(.milliseconds(200))
+            .asObservable()
+            .share()
     }
 }
