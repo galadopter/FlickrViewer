@@ -16,7 +16,8 @@ final class Network<API: RequestType> {
         case incorrectRequest
     }
     
-    init(session: URLSession = .shared) {
+    init(session: URLSession = .shared, shouldLogRequests: Bool = false) {
+        URLSession.rx.shouldLogRequest = { _ in shouldLogRequests }
         self.session = session
     }
     

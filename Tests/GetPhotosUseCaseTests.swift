@@ -34,6 +34,23 @@ class GetPhotosUseCaseTests: XCTestCase {
         recorder.eventElementShouldBe(false, at: 2, for: \.isLoadingRecorder)
     }
     
+    func test_fetchingPhotosWithEmptyString_shouldReturnEmptyArray() {
+        let page = TestHelperFactory.photosPage()
+        let useCase = makeSUT(page: page)
+        let interface = MockInterface()
+        let recorder = GetPhotosUseCaseRecorder(useCase: useCase, input: interface.mapToInput())
+        
+        recorder.start()
+        interface.searchTextSubject.onNext("")
+        interface.loadNextSubject.onNext(())
+        
+        recorder.eventsShouldEmitted(times: 0, recorder: \.isLoadingRecorder)
+        recorder.eventsShouldEmitted(times: 1, recorder: \.photosRecorder)
+        recorder.eventsShouldEmitted(times: 0, recorder: \.errorsRecorder)
+        
+        recorder.eventElementShouldBe([], at: 0, for: \.photosRecorder)
+    }
+    
     func test_fetchingTwoPagesOfPhotos_shouldSucceed() {
         let page = TestHelperFactory.photosPage()
         let useCase = makeSUT(page: page)

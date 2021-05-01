@@ -33,7 +33,7 @@ extension GetPhotosUseCase: UseCaseType {
     }
     
     func execute(input: Input) -> Output {
-        let text = input.searchText
+        let text = input.searchText.share()
         let emptyPhotos = text.filter { $0.isEmpty }.map { _ in [Photo]() }
         let photos = getPhotos(searchText: text.filter { !$0.isEmpty }, loadNextPage: input.loadNextPage)
         let errors = paginationSink.errors

@@ -37,7 +37,7 @@ struct TestHelperFactory {
         owner: String = "",
         secret: String = "",
         server: String = "",
-        farm: String = "",
+        farm: Int = 0,
         title: String = ""
     ) -> Photo {
         .init(
